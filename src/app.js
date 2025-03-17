@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 
+import testsRouter from './routes/testLogger.router.js';
 import usersRouter from './routes/users.router.js';
 import mockingRouter from './routes/mocks.router.js'
 import petsRouter from './routes/pets.router.js';
@@ -24,6 +25,7 @@ app.use('/api/pets',petsRouter);
 app.use('/api/adoptions',adoptionsRouter);
 app.use('/api/sessions',sessionsRouter);
 app.use('/api/mocks', mockingRouter);
+app.use('/api/loggerTest', testsRouter);
 
 app.use(handleErrors)
 

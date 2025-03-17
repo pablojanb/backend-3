@@ -1,6 +1,6 @@
-const createError = (name, message, cause, code)=>{
+export const createError = (name, message, cause, code)=>{
     const error = new Error(message, {cause})
     error.code = code
-    error.cause = name
+    error.name = name
     throw error
 }

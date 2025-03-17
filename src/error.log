@@ -1,1 +1,2 @@
-
+error: Testeando error: ReferenceError: inexistentVariable is not defined {"timestamp":"2025-03-17T22:05:44.069Z"}
+error: Error al generar data: Parametros: Parametro no puede ser null {"timestamp":"2025-03-17T22:23:37.767Z"}

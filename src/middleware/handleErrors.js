@@ -1,3 +1,6 @@
 export const handleErrors = (error, _, res, __)=>{
-    res.send({error: 'error interno del servidor'})
+    if (error.code) {
+        res.status(error.code).send({error: error.message})
+    }
+    res.status(500).send({error: 'error interno del servidor'})
 }

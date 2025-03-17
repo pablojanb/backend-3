@@ -9,5 +9,4 @@ router.get('/mockingpets', mockPets)
 router.get('/mockingusers', mockUsers)
 router.post('/generatedata', generateData)
 
-
 export default router
