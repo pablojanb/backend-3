@@ -54,7 +54,8 @@ const uploadDocument = async(req,res) =>{
             reference: `${__dirname}/../public/documents/${file.filename}`
         })
         await usersService.update(uid,user);
-        res.send({status:"success",message:"document uploaded"})
+        const updatedUser = await usersService.getUserById(uid);
+        res.send({status:"success",payload:updatedUser})
     } catch (error) {
         req.logger.error(`Error: ${error}`)
     }
