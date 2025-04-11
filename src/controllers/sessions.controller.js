@@ -28,10 +28,12 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) return res.status(400).send({ status: "error", error: "Incomplete values" });
-        const user = await usersService.getUserByEmail(email);
+        let user = await usersService.getUserByEmail(email);
         if(!user) return res.status(404).send({status:"error",error:"User doesn't exist"});
         const isValidPassword = await passwordValidation(user,password);
         if(!isValidPassword) return res.status(400).send({status:"error",error:"Incorrect password"});
+        user.last_connection = "online"
+        await usersService.update(user._id, user)
         const userDto = UserDTO.getUserTokenFrom(user);
         const token = jwt.sign(userDto,'tokenSecretJWT',{expiresIn:"1h"});
         res.cookie('coderCookie',token,{maxAge:3600000}).send({status:"success",message:"Logged in"})
@@ -40,9 +42,23 @@ const login = async (req, res) => {
     }
 }
 
+const logout = async (req, res) => {
+    try {
+        const cookie = req.cookies['coderCookie']
+        let user = jwt.verify(cookie,'tokenSecretJWT');
+        user = await usersService.getBy({email: user.email})
+        user.last_connection = new Date().toUTCString()
+        await usersService.update(user._id, user)
+        res.clearCookie('coderCookie').send({msg:'Logout correct'})
+    } catch (error) {
+        req.logger.error(`Error: ${error}`)
+    }
+}
+
 const current = async(req,res) =>{
     try {
         const cookie = req.cookies['coderCookie']
+        if (!cookie) return res.send({status:"unauthorized"})
         const user = jwt.verify(cookie,'tokenSecretJWT');
         if(user) return res.send({status:"success",payload:user})
     } catch (error) {
@@ -76,6 +92,7 @@ const unprotectedCurrent = async(req,res)=>{
 export default {
     current,
     login,
+    logout,
     register,
     current,
     unprotectedLogin,

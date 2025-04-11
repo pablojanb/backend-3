@@ -1,2 +1,8 @@
 error: Testeando error: ReferenceError: inexistentVariable is not defined {"timestamp":"2025-03-17T22:05:44.069Z"}
 error: Error al generar data: Parametros: Parametro no puede ser null {"timestamp":"2025-03-17T22:23:37.767Z"}
+error: Error: JsonWebTokenError: jwt must be provided {"timestamp":"2025-04-11T00:20:21.466Z"}
+error: Error: JsonWebTokenError: jwt must be provided {"timestamp":"2025-04-11T00:21:59.557Z"}
+error: Error: JsonWebTokenError: jwt must be provided {"timestamp":"2025-04-11T00:22:36.890Z"}
+error: Error: JsonWebTokenError: jwt must be provided {"timestamp":"2025-04-11T00:23:20.948Z"}
+error: Error: JsonWebTokenError: jwt must be provided {"timestamp":"2025-04-11T00:41:41.788Z"}
+error: Error: JsonWebTokenError: jwt must be provided {"timestamp":"2025-04-11T00:48:56.262Z"}
