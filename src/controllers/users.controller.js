@@ -1,4 +1,5 @@
 import { usersService } from "../services/index.js"
+import __dirname from "../utils/index.js";
 
 const getAllUsers = async(req,res)=>{
     try {
@@ -43,9 +44,26 @@ const deleteUser = async(req,res) =>{
     }
 }
 
+const uploadDocument = async(req,res) =>{
+    try {
+        const file = req.file;
+        const {uid} = req.params
+        let user = await usersService.getUserById(uid);
+        user.documents.push({
+            name: `${file.filename}`,
+            reference: `${__dirname}/../public/documents/${file.filename}`
+        })
+        await usersService.update(uid,user);
+        res.send({status:"success",message:"document uploaded"})
+    } catch (error) {
+        req.logger.error(`Error: ${error}`)
+    }
+}
+
 export default {
     deleteUser,
     getAllUsers,
     getUser,
-    updateUser
+    updateUser,
+    uploadDocument
 }

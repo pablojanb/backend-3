@@ -1,15 +1,23 @@
 import __dirname from "./index.js";
 import multer from 'multer';
 
-const storage = multer.diskStorage({
+const storagePets = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null,`${__dirname}/../public/img`)
+        cb(null,`${__dirname}/../public/pets`)
     },
     filename:function(req,file,cb){
         cb(null,`${Date.now()}-${file.originalname}`)
     }
 })
 
-const uploader = multer({storage})
+const storageDocs = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,`${__dirname}/../public/documents`)
+    },
+    filename:function(req,file,cb){
+        cb(null,`${Date.now()}-${file.originalname}`)
+    }
+})
 
-export default uploader;
+export const uploaderPets = multer({storage: storagePets})
+export const uploaderDocs = multer({storage: storageDocs})
