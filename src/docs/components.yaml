@@ -1,0 +1,167 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Id del usuario
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario.
+        email:
+          type: string
+          description: Correo electronico
+        password: 
+          type: string
+          description: contraseña de acceso
+        role: 
+          type: string
+          description: rol de usuario
+        pets: 
+          type: array
+          description: mascotas asociadas al usuario
+      example:
+        _id: 67de1928c64ad8704d8c81f5
+        first_name: Shaquille
+        last_name: O'neal
+        email: shaq-a-fool@gmail.com
+        password: 123
+        role: user
+        pets: []
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Id de la mascota
+        name:
+          type: string
+          description: Nombre de la mascota
+        specie:
+          type: string
+          description: Especie de la mascota
+        birthDate:
+          type: date
+          description: Fecha de nacimiento de la mascota
+        adopted: 
+          type: boolean
+          description: Estado de adopción de la mascota
+        owner: 
+          type: object
+          description: Dueño de la mascota
+        image:
+          type: string
+          description: Imagen asociada a la mascota
+      example:
+        _id: 67de1928c64ad8704d8c81f5
+        name: Roco
+        specie: Perro
+        birthDate: 2023-01-04
+        adopted: false
+        image: "C:\\Users\\ruta\\src\\utils/../public/img/1742615652213-perro-pet.jpg"
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Id de la adopción
+        owner:
+          type: string
+          description: Id del dueño
+        pet:
+          type: string
+          description: Id de la mascota
+      example:
+        _id: 67de201d57be594b37a311e9
+        owner: 67ddfa728071dbfcbeedb16b
+        pet: 67de1928c64ad8704d8c81f5
+  requestBodies:
+    updateUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario.   
+        email:
+          type: string
+          description: Correo electronico
+        password: 
+          type: string
+          description: contraseña de acceso
+        role: 
+          type: string
+          description: rol de usuario
+        pets: 
+          type: array
+          description: mascotas asociadas al usuario
+      example:
+        first_name: Kobe
+        last_name: Bryant
+        email: kobe-8-24@gmail.com
+        password: 123
+        role: user
+        pets: []
+    createUpdatePet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre de la mascota
+        specie:
+          type: string
+          description: Especie de la mascota
+        birthDate:
+          type: date
+          description: Fecha de nacimiento de la mascota
+        adopted: 
+          type: boolean
+          description: Estado de adopción de la mascota
+        owner: 
+          type: object
+          description: Dueño de la mascota
+        image:
+          type: string
+          description: Imagen asociada a la mascota
+      example:
+        name: Firulais
+        specie: Perro
+        birthDate: 2025-03-22
+    registerUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Email del usuario
+        password: 
+          type: string
+          description: Password del usuario
+      example:
+        first_name: Roberto
+        last_name: Carlos
+        email: robertocarlos@gmail.com
+        password: 123
+    loginUser:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email del usuario
+        password: 
+          type: string
+          description: Password del usuario
+      example:
+        email: robertocarlos@gmail.com
+        password: 123

@@ -1,0 +1,89 @@
+paths:
+  /api/adoptions:
+    get:
+      summary: Obtiene todas las adopciones
+      tags:
+        - Adoptions
+      responses:
+        "200":
+          description: Las adopciones fueron obtenidas OK desde la DB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Lista de adopciones
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/Adoption'
+        "500":
+          description: Error interno del servidor
+  /api/adoptions/:aid:
+    get:
+      summary: Obtiene una adopcion de la base de datos
+      tags:
+        - Adoptions
+      parameters:
+      - name: aid
+        in: path
+        required: true
+        description: id de la adopcion que se está solicitando
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Recupera una adopcion de la DB, según el aid que enviamos en la ruta como parámetro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Adopcion
+                  payload:
+                    type: object
+                    example:
+                      _id: 67de201d57be594b37a311e9,
+                      owner: 67ddfa728071dbfcbeedb16b,
+                      pet: 67de1928c64ad8704d8c81f5,
+        "500":
+          description: Error interno del servidor
+  /api/adoptions/:uid/:pid:
+    post:
+      summary: Crea una adopcion en la base de datos
+      tags:
+        - Adoptions
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: id del usuario asociado a la adopcion
+        schema:
+          type: string
+      - name: pid
+        in: path
+        required: true
+        description: id de la mascota asociada a la adopcion
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Crea una adopcion en la DB, según el uid y el pid que enviamos en la ruta como parámetro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Adoption
+                  message:
+                    type: string
+                    items:
+                      $ref: '#components/schemas/Adoption'
+        "500":
+          description: Error interno del servidor

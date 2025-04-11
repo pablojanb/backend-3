@@ -1,0 +1,120 @@
+paths:
+  /api/users:
+    get:
+      summary: Obtiene todos los usuarios de la DB
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Los usuarios fueron obtenidos de manera exitosa desde la DB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Lista de usuarios
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/User'
+        "500":
+          description: Error interno del servidor
+  /api/users/{uid}:
+    get:
+      summary: Obtiene un único usuario de la base de datos
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Id del usuario que se está solicitando
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Obtiene un usuario de la DB, según el uid que enviamos en la ruta como parámetro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Lista de usuarios
+                  payload:
+                    type: object
+                    example:
+                      _id: 67ddfa728071dbfcbeedb16b
+                      first_name: Shaquille
+                      last_name: O'neal
+                      email: shaq-a-fool@gmail.com
+                      password: 123
+                      role: user
+                      pets: []
+        "500":
+          description: Error interno del servidor
+    put:
+      summary: Actualiza un usuario en la base de datos
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Id del usuario que se quiere actualizar
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/updateUser'
+      responses:
+        "200":
+          description: Actualiza un usuario de la DB, según el uid que enviamos en la ruta como parámetro y los datos que enviamos por body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Usuario
+                  message:
+                    type: string
+                    items:
+                      $ref: '#components/schemas/User'
+        "500":
+          description: Error interno del servidor
+    delete:
+      summary: Elimina un usuario de la base de datos
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Id del usuario que se quiere eliminar
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Elimina un usuario de la DB, según el uid que enviamos en la ruta como parámetro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Usuario
+                  message:
+                    type: string
+                    items:
+                      $ref: '#components/schemas/User'
+        "500":
+          description: Error interno del servidor

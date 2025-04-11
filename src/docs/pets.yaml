@@ -1,0 +1,162 @@
+paths:
+  /api/pets:
+    get:
+      summary: Obtiene todos las mascotas
+      tags:
+        - Pets
+      responses:
+        "200":
+          description: Las mascotas fueron obtenidas OK desde la DB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Lista de mascotas
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/Pet'
+        "500":
+          description: Error interno del servidor
+    post:
+      summary: Graba una mascota
+      tags:
+        - Pets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/createUpdatePet'
+      responses:
+        "200":
+          description: Mascota creada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Pet
+                  payload:
+                    type: object
+                    example:
+                      _id: 671e782a8aaa6fe20f6a3c21
+                      name: Firulais
+                      specie: Perro
+                      birthDate: 2025-03-22
+                      adopted: false
+                      image: ''
+        "500":
+          description: Error interno del servidor
+  /api/pets/withimage:
+    post:
+      summary: Crea una mascota en DB con su imagen asociada
+      tags:
+        - Pets
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: Imagen de la mascota
+                name:
+                  type: string
+                  description: Nombre de la mascota
+                specie:
+                  type: string
+                  description: Especie de la mascota
+                birthDate:
+                  type: string
+                  description: Fecha de nacimiento de la mascota
+      responses:
+        "200":
+          description: Mascota creada correctamente en DB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Lista de mascotas
+                  payload:
+                    type: object
+                    example:
+                      _id: 671e782a8aaa6fe20f6a3c21
+                      name: Firulais
+                      specie: Perro
+                      birthDate: 2025-03-22
+                      adopted: false
+                      owner: {}
+                      image: "C:\\Users\\ruta\\src\\utils/../public/img/1742615652213-perro-pet.jpg"
+        "500":
+          description: Error interno del servidor
+  /api/pets/{pid}:
+    put:
+      summary: Actualiza una mascota en la base de datos
+      tags:
+        - Pets
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: id de la mascota que se quiere actualizar
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/createUpdatePet'
+      responses:
+        "200":
+          description: Actualiza una mascota en la DB, según el pid que enviamos en la ruta como parámetro y los datos que enviamos por body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Pet
+                  message:
+                    type: string
+        "500":
+          description: Error interno del servidor
+    delete:
+      summary: Elimina una mascota de la base de datos
+      tags:
+        - Pets
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: id de la mascota que se quiere eliminar
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Elimina una mascota de la DB, según el pid que enviamos en la ruta como parámetro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Usuario
+                  message:
+                    type: string
+        "500":
+          description: Error interno del servidor

@@ -1,19 +1,2 @@
 error: Testeando error: ReferenceError: inexistentVariable is not defined {"timestamp":"2025-03-17T22:05:44.069Z"}
 error: Error al generar data: Parametros: Parametro no puede ser null {"timestamp":"2025-03-17T22:23:37.767Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T04:57:42.550Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T04:57:47.793Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T04:57:53.670Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:06:12.429Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:32:25.112Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:33:21.480Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:33:26.735Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:33:32.526Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:35:30.946Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:35:36.185Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:35:42.012Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:36:27.785Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:36:33.010Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:36:38.866Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:38:34.383Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:38:39.592Z"}
-error: Error: Error: Expected "payload" to be a plain object. {"timestamp":"2025-04-11T05:38:45.346Z"}
