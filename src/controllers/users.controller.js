@@ -37,7 +37,7 @@ const updateUser =async(req,res)=>{
 const deleteUser = async(req,res) =>{
     try {
         const userId = req.params.uid;
-        const result = await usersService.getUserById(userId);
+        const result = await usersService.delete(userId);
         res.send({status:"success",message:"User deleted"})
     } catch (error) {
         req.logger.error(`Error: ${error}`)

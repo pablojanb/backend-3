@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/app.js --modo production",
     "dev": "nodemon src/app.js",
-    "test": "mocha test/supertest.test.js"
+    "test": "npx mocha ./test/**/*.test.js --exit"
   },
   "keywords": [],
   "author": "",
