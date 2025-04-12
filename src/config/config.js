@@ -1,4 +1,8 @@
-process.loadEnvFile('./.env')
+import opts from './commander.js'
+
+if (opts.modo === 'dev') {
+    process.loadEnvFile('./.env')
+}
 
 export const config = {
     PORT: process.env.PORT,
