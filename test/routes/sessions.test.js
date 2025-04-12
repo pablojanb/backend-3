@@ -19,7 +19,7 @@ describe('Tests sobre el router /api/sessions', function(){
             const body = {
                 first_name: "test",
                 last_name: "Perez",
-                email: "juanperez@gmail.com",
+                email: "testperez@gmail.com",
                 password: "123"
               }
             const response = await requester.post('/api/sessions/register').send(body)
@@ -30,7 +30,7 @@ describe('Tests sobre el router /api/sessions', function(){
             const bodyUser = {
                 first_name: "test",
                 last_name: "Perez",
-                email: "juanperez@gmail.com",
+                email: "testperez@gmail.com",
                 password: "123"
             }
             const response = await requester.post('/api/sessions/register').send(bodyUser)
@@ -67,7 +67,7 @@ describe('Tests sobre el router /api/sessions', function(){
             const body = {
                 first_name: "test",
                 last_name: "Perez",
-                email: "juanperez@gmail.com",
+                email: "testperez@gmail.com",
                 password: "123"
             }
             await requester.post('/api/sessions/register').send(body)
@@ -76,18 +76,18 @@ describe('Tests sobre el router /api/sessions', function(){
             await userModel.deleteMany({first_name: 'test'})
         })
         it('Debe devolver un status 200', async()=>{
-            const response = await requester.post('/api/sessions/login').send({email: "juanperez@gmail.com", password: "123"})
+            const response = await requester.post('/api/sessions/login').send({email: "testperez@gmail.com", password: "123"})
             const {statusCode} = response
             expect(statusCode).to.be.eq(200)
         })
         it('Debe devolver un objeto con las propiedades status(success) y message (Logged in)', async()=>{
-            const response = await requester.post('/api/sessions/login').send({email: "juanperez@gmail.com", password: "123"})
+            const response = await requester.post('/api/sessions/login').send({email: "testperez@gmail.com", password: "123"})
             const {body} = response
             expect(body).to.have.property('status').and.to.be.eq('success')
             expect(body).to.have.property('message').and.to.be.eq('Logged in')
         })
         it('Si faltan enviar propiedades para el login debe devolver un objeto con las propiedades status(error) y error (Incomplete values)', async()=>{
-            const response = await requester.post('/api/sessions/login').send({email: "juanperez@gmail.com"})
+            const response = await requester.post('/api/sessions/login').send({email: "testperez@gmail.com"})
             const {body} = response
             expect(body).to.have.property('status').and.to.be.eq('error')
             expect(body).to.have.property('error').and.to.be.eq('Incomplete values')
@@ -99,16 +99,21 @@ describe('Tests sobre el router /api/sessions', function(){
             expect(body).to.have.property('error').and.to.be.eq("User doesn't exist")
         })
         it("Si recibe un password incorrecto debe devolver un objeto con las propiedades status(error) y error (Incorrect password)", async()=>{
-            const response = await requester.post('/api/sessions/login').send({email: "juanperez@gmail.com", password: '1234'})
+            const response = await requester.post('/api/sessions/login').send({email: "testperez@gmail.com", password: '1234'})
             const {body} = response
             expect(body).to.have.property('status').and.to.be.eq('error')
             expect(body).to.have.property('error').and.to.be.eq("Incorrect password")
         })
         it("Debe devolver una cookie llamada coderCookie", async()=>{
-            const { headers } = await requester.post('/api/sessions/login').send({email: "juanperez@gmail.com", password: "123"})
+            const { headers } = await requester.post('/api/sessions/login').send({email: "testperez@gmail.com", password: "123"})
             cookie = headers['set-cookie'][0]
             const cookieNombre = cookie.split('=')[0]
             expect(cookieNombre).to.be.eq('coderCookie')
+        })
+        it("Debe actualizar en DB la propiedad last_connection a online", async()=>{
+            await requester.post('/api/sessions/login').send({email: "testperez@gmail.com", password: "123"})
+            const {last_connection} = await userModel.findOne({email: "testperez@gmail.com"})
+            expect(last_connection).to.be.eq('online')
         })
     })
     describe('Método GET (/api/sessions/current)', ()=>{
@@ -125,7 +130,7 @@ describe('Tests sobre el router /api/sessions', function(){
             const { body } = await requester.get('/api/sessions/current').set("Cookie", cookie)
             expect(body.payload).to.have.property('name').and.to.be.eq('test Perez')
             expect(body.payload).to.have.property('role').and.to.be.eq('user')
-            expect(body.payload).to.have.property('email').and.to.be.eq('juanperez@gmail.com')
+            expect(body.payload).to.have.property('email').and.to.be.eq('testperez@gmail.com')
             expect(body.payload).to.have.property('iat')
             expect(body.payload).to.have.property('exp')
         })
@@ -135,7 +140,7 @@ describe('Tests sobre el router /api/sessions', function(){
             const body = {
                 first_name: "test",
                 last_name: "unprotected",
-                email: "juanperez@gmail.com",
+                email: "testperez@gmail.com",
                 password: "123"
             }
             await requester.post('/api/sessions/register').send(body)
@@ -144,30 +149,30 @@ describe('Tests sobre el router /api/sessions', function(){
             await userModel.deleteMany({first_name: 'test'})
         })
         it('Debe devolver un status 200', async()=>{
-            const response = await requester.get('/api/sessions/unprotectedLogin').send({email: "juanperez@gmail.com", password: "123"})
+            const response = await requester.get('/api/sessions/unprotectedLogin').send({email: "testperez@gmail.com", password: "123"})
             const {statusCode} = response
             expect(statusCode).to.be.eq(200)
         })
         it('Debe devolver un objeto con las propiedades status(success) y message (Unprotected Logged in)', async()=>{
-            const response = await requester.get('/api/sessions/unprotectedLogin').send({email: "juanperez@gmail.com", password: "123"})
+            const response = await requester.get('/api/sessions/unprotectedLogin').send({email: "testperez@gmail.com", password: "123"})
             const {body} = response
             expect(body).to.have.property('status').and.to.be.eq('success')
             expect(body).to.have.property('message').and.to.be.eq('Unprotected Logged in')
         })
         it('Si faltan enviar propiedades para el login debe devolver un objeto con las propiedades status(error) y error (Incomplete values)', async()=>{
-            const response = await requester.get('/api/sessions/unprotectedLogin').send({email: "juanperez@gmail.com"})
+            const response = await requester.get('/api/sessions/unprotectedLogin').send({email: "testperez@gmail.com"})
             const {body} = response
             expect(body).to.have.property('status').and.to.be.eq('error')
             expect(body).to.have.property('error').and.to.be.eq('Incomplete values')
         })
         it("Si recibe un password incorrecto debe devolver un objeto con las propiedades status(error) y error (Incorrect password)", async()=>{
-            const response = await requester.get('/api/sessions/unprotectedLogin').send({email: "juanperez@gmail.com", password: '1234'})
+            const response = await requester.get('/api/sessions/unprotectedLogin').send({email: "testperez@gmail.com", password: '1234'})
             const {body} = response
             expect(body).to.have.property('status').and.to.be.eq('error')
             expect(body).to.have.property('error').and.to.be.eq("Incorrect password")
         })
         it("Debe devolver una cookie llamada unprotectedCookie", async()=>{
-            const { headers } = await requester.get('/api/sessions/unprotectedLogin').send({email: "juanperez@gmail.com", password: "123"})
+            const { headers } = await requester.get('/api/sessions/unprotectedLogin').send({email: "testperez@gmail.com", password: "123"})
             cookieUnprotectedLogin = headers['set-cookie'][0]
             const cookieNombre = cookieUnprotectedLogin.split('=')[0]
             expect(cookieNombre).to.be.eq('unprotectedCookie')
@@ -187,7 +192,7 @@ describe('Tests sobre el router /api/sessions', function(){
             const { body } = await requester.get('/api/sessions/unprotectedCurrent').set("Cookie", cookieUnprotectedLogin)
             expect(body.payload).to.have.property('name').and.to.be.eq('test unprotected')
             expect(body.payload).to.have.property('role').and.to.be.eq('user')
-            expect(body.payload).to.have.property('email').and.to.be.eq('juanperez@gmail.com')
+            expect(body.payload).to.have.property('email').and.to.be.eq('testperez@gmail.com')
             expect(body.payload).to.have.property('iat')
             expect(body.payload).to.have.property('exp')
         })

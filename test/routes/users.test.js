@@ -268,5 +268,19 @@ describe('Tests sobre el router /api/users', function(){
             expect(fs.existsSync(body.payload.documents[0].reference)).to.be.true
             fs.unlinkSync(body.payload.documents[0].reference)
         })
+        it('Debe actualizar en DB la propiedad documents del usuario', async()=>{
+            const userBeforeUpdate = await userModel.findById(userId)
+            
+            const {body} = await requester.post(`/api/users/${userId}/documents`)
+                                            .attach("doc", "./test/doc-test.txt")
+            expect(Array.isArray(body.payload.documents)).to.be.true
+            body.payload.documents.forEach(doc=>{
+                expect(doc).to.have.property('name')
+                expect(doc).to.have.property('reference')
+            })
+    
+            expect(body.payload.documents.length - 1).to.be.eq(userBeforeUpdate.documents.length)
+            fs.unlinkSync(body.payload.documents[0].reference)
+        })
     })
 })

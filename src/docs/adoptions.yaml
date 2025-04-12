@@ -6,7 +6,7 @@ paths:
         - Adoptions
       responses:
         "200":
-          description: Las adopciones fueron obtenidas OK desde la DB
+          description: Las adopciones fueron obtenidas con éxito desde la DB
           content:
             application/json:
               schema:

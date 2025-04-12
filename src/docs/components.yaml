@@ -24,6 +24,12 @@ components:
         pets: 
           type: array
           description: mascotas asociadas al usuario
+        last_connection: 
+          type: string
+          description: última conexión del usuario
+        documents: 
+          type: array
+          description: documentos asociados al usuario
       example:
         _id: 67de1928c64ad8704d8c81f5
         first_name: Shaquille
@@ -32,6 +38,8 @@ components:
         password: 123
         role: user
         pets: []
+        last_connection: online
+        documents: []
     Pet:
       type: object
       properties:

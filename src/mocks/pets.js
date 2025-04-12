@@ -20,7 +20,8 @@ export const createPets = (num)=>{
             _id: faker.database.mongodbObjectId(),
             name: faker.animal.petName(),
             specie: randomNum === 1 ? 'dog' : 'cat',
-            birthDate: generarFechaRandom(fechaInicio, fechaFin)
+            birthDate: generarFechaRandom(fechaInicio, fechaFin),
+            image: ""
         }
         pets.push(newPet)
     }

@@ -6,7 +6,7 @@ paths:
         - Pets
       responses:
         "200":
-          description: Las mascotas fueron obtenidas OK desde la DB
+          description: Las mascotas fueron obtenidas con éxito desde la DB
           content:
             application/json:
               schema:
@@ -88,7 +88,7 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: Lista de mascotas
+                    description: Mascota creada
                   payload:
                     type: object
                     example:
@@ -155,7 +155,7 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: Usuario
+                    description: Macota eliminada
                   message:
                     type: string
         "500":

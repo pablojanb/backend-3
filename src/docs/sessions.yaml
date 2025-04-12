@@ -67,7 +67,7 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: Lista de usuarios
+                    description: Usuario
                   payload:
                     type: object
                     example:
